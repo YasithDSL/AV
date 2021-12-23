@@ -1,12 +1,15 @@
 export default class Cell {
     object = null;
     visited = false;
+
     distance = Number.MAX_VALUE; // distance from the start node
     heuristic = Number.MAX_VALUE;
     totalcost = Number.MAX_VALUE;
+
     label = "blank";
     previous = null;
     id = null;
+    traversable = true;
 
 
     constructor(cell_id) {
@@ -23,7 +26,6 @@ export default class Cell {
         console.log("Changed state");
 
         if(this.object.style.color != "red" && this.object.style.color != "green") {
-            console.log("Changing color");
             this.object.style.color = "blue";
         }
     }

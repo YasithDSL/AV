@@ -42,7 +42,7 @@ export default async function Dijkstras() {
         if(unvisited_nodes.length == prev_count && prev_current_node == current_node) {
             lock_count = lock_count + 1;
         }
-        if (lock_count  == 10 ) {
+        if (lock_count == 10 ) {
             alert("There is no route to the destination node.");
             no_route = true;
         }

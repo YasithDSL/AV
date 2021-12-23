@@ -8,102 +8,108 @@ export default async function AStar() {
     var destination_id;
     var start_node;
 
+    var nodes_list = [];
     buttons.forEach(button => {
         if(!invBtns.includes(button.getAttribute("id"))) {
             var cell = new Cell(button.id);
+            // implement switch here
             if(button.style.color == "black") {
                 cell.visited = true;
+                cell.traversable = false;
             }
             if(button.style.color === "green") {
                 destination_node = cell;
                 destination_id = button.id;
             } else if(button.style.color === "red") {
                 cell.totalcost = 0;
+                cell.distance = 0;
                 start_node = cell;
             }
             nodes[button.id] = cell;
+            nodes_list.push(cell);
         }
     });
 
-    var unvisited_nodes = [];
     var visited = [];
-
-    unvisited_nodes.push(start_node);
+    var open_list = [];
     // implement no route feature after initial implementation
+    // Add slow drawing of visited nodes
+    open_list.push(start_node);
     while(!destination_node.visited) {
-        var current_node = null;
-        unvisited_nodes.forEach(node => {
-            if(current_node == null) {
-                current_node = nodes[node.id];
-            } else if (node.totalcost < current_node.totalcost) {
-                current_node = nodes[node.id];
+        var current = open_list[0];
+        console.log(open_list.length);
+        for(var i = 0; i < open_list.length; i++) {
+            if(open_list[i].totalcost < current.totalcost) {
+                current = open_list[i];
             }
-        })
+        }
+        open_list = remove(open_list, current);
+        current.visit();
+        visited.push(nodes[current.id]);
 
-        unvisited_nodes.pop(current_node);
-        current_node.visit();
-        visited.push(current_node);
-
-        if(current_node.id == destination_node.id) {
-            alert("Found.");
+        if(current == destination_node) {
             destination_node.visit();
-            return;
+        }
+        let current_id = current.id;
+        let closest_nodes = [nodes[generate_ids(current_id, "-", 1)], nodes[generate_ids(current_id, "+", 1)], nodes[generate_ids(current_id, "-", 20)], nodes[generate_ids(current_id, "+", 20)]];
+        for(var i = 0; i < closest_nodes.length; i++) {
+            if(closest_nodes[i] != null) {
+                if(!closest_nodes[i].traversable || visited.includes(closest_nodes[i])) {
+                    console.log("not traversable or is in visited list");
+                } else {
+                    var distance_to_neighbor = current.distance + 1;
+    
+                    if(distance_to_neighbor < closest_nodes[i].distance || !open_list.includes(closest_nodes[i])) {
+                        console.log("A new shortest path has been found or is not in open list");
+                        closest_nodes[i].update_costs(distance_to_neighbor, calculate_cost(destination_node.id, closest_nodes[i].id));
+                        closest_nodes[i].previous = current;
+                        if(!open_list.includes(closest_nodes[i])) {
+                            console.log("Added to open list, new length" + (open_list.length + 1));
+                            open_list.push(closest_nodes[i]);
+                        }
+                    }
+                }
+            }
         }
 
-        var closest_nodes = [nodes[generate_ids(current_node.id, "-", 1)], nodes[generate_ids(current_node.id, "+", 1)], nodes[generate_ids(current_node.id, "-", 20)], nodes[generate_ids(current_node.id, "+", 20)]];
-        closest_nodes.forEach(node => {
-            var node_dcost = calculate_dcost(start_node.id, node.id);
-            var node_hcost = calculate_hcost(destination_node.id, node.id);
-            var temp_total = node_dcost + node_hcost;
-            var idcheck = false;
-            visited.forEach(checknode => {
-                if(checknode.id == node.id) {
-                    idcheck = true;
-                }
-            });
-            var unvisitedcheck = false
-            unvisited_nodes.forEach(checknode => {
-                if(checknode.id == node.id) {
-                    unvisitedcheck = true;
-                }
-            })
-            if(!idcheck && (!unvisitedcheck || (temp_total < node.totalcost))) {
-                node.update_costs(node_dcost, node_hcost);
-                node.previous = current_node;
-                var unvisitedcheck = false
-                unvisited_nodes.forEach(checknode => {
-                    if(checknode.id == node.id) {
-                        unvisitedcheck = true;
-                    }
-                })
-                if(!unvisitedcheck) {
-                    unvisited_nodes.push(node);
-                }
-                nodes[node.id] = node;
-            }
+    }
 
-        })
-        nodes[current_node.id] = current_node;
+    var reached_start = false;
+    var current_node = destination_node;
+    while(!reached_start) {
+        var previous = current_node.previous;
+        if(previous.id == start_node.id) {
+            reached_start = true;
+            break;
+        }
+        previous.object.style.color = "gold";
+        current_node = previous;
+        let sleep = new Promise((resolve, reject) => {
+            setTimeout(() => resolve(), 50)
+        });
+
+        await sleep;
     }
 
 }
 
-function calculate_dcost(start, current) { 
-    var start_column = Math.floor(start / 20);
-    var current_column = Math.floor(current / 20);
-    var start_row = start % 20;
-    var current_row = current % 20;
-    var dcost = Math.abs(current_column - start_column) + Math.abs(current_row - start_row);
-    return dcost;
+function remove(list, item) {
+    var res_list = [];
+    for(var i = 0; i < list.length; i++) {
+        if(list[i].id != item.id) {
+            res_list.push(list[i]);
+        }
+    }
+    return res_list;
 }
 
-function calculate_hcost(destination, current) { 
-    var destination_column = Math.floor(destination / 20);
+function calculate_cost(node, current) { 
+    var node_column = Math.floor(node / 20);
     var current_column = Math.floor(current / 20);
-    var destination_row = destination % 20;
+    var node_row = node % 20;
     var current_row = current % 20;
-    var hcost = Math.abs(current_column - destination_column) + Math.abs(current_row - destination_row);
-    return hcost;
+    var cost = Math.abs(current_column - node_column) + Math.abs(current_row - node_row);
+    return cost;
 }
 
 function generate_ids(id, opcode, operand) { 
