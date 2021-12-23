@@ -93,6 +93,15 @@ export default function PathfindingIndex() {
     })
   }
 
+  function ResetVisitedNodes() { 
+    let cells = document.querySelectorAll('button');
+    cells.forEach(cell => {
+      if(!invBtns.includes(cell.getAttribute("id")) && (cell.style.color == "blue" || cell.style.color == "gold")) {
+        cell.style.color = "white";
+      }
+    })
+  }
+
   return (
     <>
       <Paper elevation={0} sx={{ mt: 2, mb: 2, bgcolor: "#20262d"}}>
@@ -104,7 +113,8 @@ export default function PathfindingIndex() {
           <Button sx={{ p: 1, color: "white"}} id="StartNode" onClick={StartNode}>Start Node</Button>
           <Button sx={{ p: 1, color: "white"}} id="TargetNode" onClick={TargetNode}>Target Node</Button>
           <Button sx={{ p: 1, color: "white"}} id="Save" onClick={Save}>Save</Button>
-          <Button sx={{ p: 1, color: "white"}} id="Reset" onClick={Reset}>Reset</Button>
+          <Button sx={{ p: 1, color: "white"}} id="Reset" onClick={Reset}>Reset Entire Grid</Button>
+          <Button sx={{ p: 1, color: "white"}} id="Reset" onClick={ResetVisitedNodes}>Reset Visisted Nodes</Button>
           <Button sx={{ p: 1, color: "white", ml: 5}} id="Djikstras" onClick={Dijkstras}>Dijkstra's</Button>
           <Button sx={{ p: 1, color: "white"}} id="A-Star" onClick={AStar}>A-Star</Button>
         </Container>

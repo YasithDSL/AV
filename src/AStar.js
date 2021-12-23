@@ -34,8 +34,16 @@ export default async function AStar() {
     var open_list = [];
     // implement no route feature after initial implementation
     // Add slow drawing of visited nodes
+    var no_route = false;
+    var count = 1;
     open_list.push(start_node);
-    while(!destination_node.visited) {
+    while(!destination_node.visited && !no_route) {
+        if(open_list.length == 0) {
+            alert("There is no route to the destination node.");
+            no_route = true;
+            continue;
+        }
+
         var current = open_list[0];
         console.log(open_list.length);
         for(var i = 0; i < open_list.length; i++) {
@@ -43,10 +51,10 @@ export default async function AStar() {
                 current = open_list[i];
             }
         }
+        
         open_list = remove(open_list, current);
         current.visit();
         visited.push(nodes[current.id]);
-
         if(current == destination_node) {
             destination_node.visit();
         }
@@ -72,11 +80,21 @@ export default async function AStar() {
             }
         }
 
+        count = count + 1;
+
+        if(count % 4 == 0) {
+            let sleep = new Promise((resolve, reject) => {
+                setTimeout(() => resolve(), 100)
+            });
+    
+            await sleep;
+        };
+
     }
 
     var reached_start = false;
     var current_node = destination_node;
-    while(!reached_start) {
+    while(!reached_start && !no_route) {
         var previous = current_node.previous;
         if(previous.id == start_node.id) {
             reached_start = true;
