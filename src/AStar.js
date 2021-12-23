@@ -2,7 +2,7 @@ import Cell from './Cell';
 
 export default async function AStar() {
     var buttons = document.querySelectorAll("button");
-    var invBtns = ["Djikstras", "Edit", "A-Star", "TargetNode", "StartNode", "Save", "Reset"];
+    var invBtns = ["Djikstras", "Edit", "A-Star", "TargetNode", "StartNode", "Save", "Reset", "ResetVisitedNodes"];
     var nodes = {};
     var destination_node;
     var destination_id;
