@@ -1,6 +1,7 @@
 import Cell from './Cell';
 
 export default async function AStar() {
+    var start_time = performance.now();
     var buttons = document.querySelectorAll("button");
     var invBtns = ["Djikstras", "Edit", "A-Star", "TargetNode", "StartNode", "Save", "Reset", "ResetVisitedNodes"];
     var nodes = {};
@@ -109,6 +110,10 @@ export default async function AStar() {
         await sleep;
     }
 
+    var end_time = performance.now();
+    var timer = document.getElementById("timer");
+    var time_taken = Math.round(end_time - start_time);
+    timer.textContent = "The last computation took " + time_taken + "ms to complete";
 }
 
 function remove(list, item) {

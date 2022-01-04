@@ -5,11 +5,17 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import CropSquareIcon from '@mui/icons-material/CropSquare';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Divider from '@mui/material/Divider';
+
+
 import Dijkstras from './Dijkstras.js';
 import AStar from './AStar.js';
+import ButtonAppBar from './AppBar.js'
+
 
 export default function PathfindingIndex() {
-
+  
   const renderButtons = () => {
     var arr = [];
 
@@ -104,11 +110,11 @@ export default function PathfindingIndex() {
 
   return (
     <>
+      <header>
+      <ButtonAppBar title = "Pathfinding Algorithms"/>
+      </header>
       <Paper elevation={0} sx={{ mt: 2, mb: 2, bgcolor: "#20262d"}}>
         <Container sx={{ p: 1, bgcolor: "#121212", color: "#FFFFFF", borderRadius: 2 , border: 1}} align="center">
-          <Typography variant="h6">
-            Pathfinding Algorithms
-          </Typography>
           <Button sx={{ p: 1, color: "white"}} id="Edit" onClick={Edit}>Edit Grid</Button>
           <Button sx={{ p: 1, color: "white"}} id="StartNode" onClick={StartNode}>Start Node</Button>
           <Button sx={{ p: 1, color: "white"}} id="TargetNode" onClick={TargetNode}>Target Node</Button>
@@ -117,6 +123,10 @@ export default function PathfindingIndex() {
           <Button sx={{ p: 1, color: "white"}} id="ResetVisitedNodes" onClick={ResetVisitedNodes}>Reset Visisted Nodes</Button>
           <Button sx={{ p: 1, color: "white", ml: 5}} id="Djikstras" onClick={Dijkstras}>Dijkstra's</Button>
           <Button sx={{ p: 1, color: "white"}} id="A-Star" onClick={AStar}>A-Star</Button>
+          <Divider style={{ background: 'white'}} />
+          <Typography id="timer" sx = {{ p: 1 }} variant="h6">
+            The last computation took 0ms to complete
+          </Typography>
         </Container>
       </Paper>
       <Container sx={{ p: 2 }}>

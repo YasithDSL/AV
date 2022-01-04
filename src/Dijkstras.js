@@ -1,6 +1,7 @@
 import Cell from './Cell.js';
 
 export default async function Dijkstras() {
+    var start_time = performance.now();
     var buttons = document.querySelectorAll("button");
     var invBtns = ["Djikstras", "Edit", "A-Star", "TargetNode", "StartNode", "Save", "Reset", "ResetVisitedNodes"];
     var nodes = {};
@@ -100,6 +101,11 @@ export default async function Dijkstras() {
 
         await sleep;
     }
+
+    var end_time = performance.now();
+    var timer = document.getElementById("timer");
+    var time_taken = Math.round(end_time - start_time);
+    timer.textContent = "The last computation took " + time_taken + "ms to complete";
 }   
 
 
