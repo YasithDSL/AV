@@ -5,6 +5,7 @@ function sleep(ms) {
 }
 
 export default async function MergeSort(size) {
+    var start_time = performance.now();
     let bars = [];
     for(var i = 0; i < size; i++) {
         var bar = new Bar(i);
@@ -15,6 +16,10 @@ export default async function MergeSort(size) {
         document.getElementById([i]).style.background = "blue";
         await sleep(1);
     }
+    var end_time = performance.now();
+    var timer = document.getElementById("timer");
+    var time_taken = Math.round(end_time - start_time);
+    timer.textContent = "The last computation took " + time_taken + "ms to complete";
 }
 
 

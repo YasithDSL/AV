@@ -1,6 +1,7 @@
 import Bar from './Bar.js';
 
 export default async function Bubble(size) {
+    var start_time = performance.now();
     var bars = [];
     for(var i = 0; i < size; i++) {
         var bar = new Bar(i);
@@ -45,4 +46,8 @@ export default async function Bubble(size) {
             bar.object.style.background = "blue";
         })
     }
+    var end_time = performance.now();
+    var timer = document.getElementById("timer");
+    var time_taken = Math.round(end_time - start_time);
+    timer.textContent = "The last computation took " + time_taken + "ms to complete";
 }
