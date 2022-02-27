@@ -12,3 +12,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.verticle-line {
+  width: 1px;
+  min-height: 5px;
+  background: white;
+  margin: 15px;
+  float: left
+}
+
+#image {
+  max-width: 100%;
+  width: 400px;
+  height: auto;
+  display: block;
+  margin: auto;
+}

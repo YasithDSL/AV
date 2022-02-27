@@ -25,9 +25,9 @@ function App() {
           </Typography>
           <Divider style={{ background: 'white'}}/>
           <Button sx={{ p: 2, color: "white"}} id="Pathfinding" onClick={() => { navigate("/pathfinding") }}>Pathfinding</Button>
-          <Button sx={{ p: 2, color: "white"}} id="ArraySort">Array Sorting</Button>
+          <Button sx={{ p: 2, color: "white"}} id="ArraySort" onClick={() => { navigate("/arraysorting") }}>Array Sorting</Button>
           <Divider style={{ background: 'white'}} />
-          <Button sx={{ p: 2, color: "white"}} id="Web3">Metamask</Button>
+          <Button sx={{ p: 2, color: "white"}} id="AI" onClick={() => { navigate("/detection") }}>AI Prediction</Button>
         </Container>
       </Paper>
     </div>

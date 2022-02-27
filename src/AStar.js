@@ -3,28 +3,28 @@ import Cell from './Cell';
 export default async function AStar() {
     var start_time = performance.now();
     var buttons = document.querySelectorAll("button");
-    var invBtns = ["Djikstras", "Edit", "A-Star", "TargetNode", "StartNode", "Save", "Reset", "ResetVisitedNodes"];
+    var invBtns = ["Return", "Djikstras", "Edit", "A-Star", "TargetNode", "StartNode", "Save", "Reset", "ResetVisitedNodes"];
     var nodes = {};
     var destination_node;
-    var destination_id;
     var start_node;
 
     var nodes_list = [];
     buttons.forEach(button => {
         if(!invBtns.includes(button.getAttribute("id"))) {
             var cell = new Cell(button.id);
-            // implement switch here
-            if(button.style.color == "black") {
-                cell.visited = true;
-                cell.traversable = false;
-            }
-            if(button.style.color === "green") {
-                destination_node = cell;
-                destination_id = button.id;
-            } else if(button.style.color === "red") {
-                cell.totalcost = 0;
-                cell.distance = 0;
-                start_node = cell;
+            switch(button.style.color) {
+                case "black":
+                    cell.visited=true;
+                    cell.traversable = false;
+                    break;
+                case "green":
+                    destination_node = cell;
+                    break;
+                case "red":
+                    cell.totalcost = 0;
+                    cell.distance = 0;
+                    start_node = cell;
+                    break;
             }
             nodes[button.id] = cell;
             nodes_list.push(cell);

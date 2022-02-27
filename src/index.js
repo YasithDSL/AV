@@ -4,7 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import PathfindingIndex from './PathfindingIndex.js'
+import PathfindingIndex from './PathfindingIndex.js';
+import SortingIndex from './SortingIndex.js';
+import DetectionIndex from './DetectionIndex.js';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -12,6 +14,8 @@ ReactDOM.render(
       <Routes>
         <Route index element={<App />} />
         <Route path="/pathfinding" element={<PathfindingIndex />} />
+        <Route path="/arraysorting" element={<SortingIndex />} />
+        <Route path="/detection" element={<DetectionIndex />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

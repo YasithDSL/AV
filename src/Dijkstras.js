@@ -3,25 +3,26 @@ import Cell from './Cell.js';
 export default async function Dijkstras() {
     var start_time = performance.now();
     var buttons = document.querySelectorAll("button");
-    var invBtns = ["Djikstras", "Edit", "A-Star", "TargetNode", "StartNode", "Save", "Reset", "ResetVisitedNodes"];
+    var invBtns = ["Return", "Djikstras", "Edit", "A-Star", "TargetNode", "StartNode", "Save", "Reset", "ResetVisitedNodes"];
     var nodes = {};
     var destination_node;
-    var destination_id;
     var start_node;
     buttons.forEach(button => {
         if(!invBtns.includes(button.getAttribute("id"))) {
             var cell = new Cell(button.id);
-            if(button.style.color == "black") {
-                cell.visited = true;
+            switch(button.style.color) {
+                case "black":
+                    cell.visited = true;
+                    break;
+                case "green":
+                    destination_node = cell;
+                    break;
+                case "red":
+                    cell.distance = 0;
+                    start_node = cell;
+                    break;
             }
             nodes[button.id] = cell;
-            if(button.style.color === "green") {
-                destination_node = cell;
-                destination_id = button.id;
-            } else if(button.style.color === "red") {
-                cell.distance = 0;
-                start_node = cell;
-            }
         }
     })
     // closest cells = +-1 on id and +- 20 on id
