@@ -15,10 +15,12 @@ import ButtonAppBar from './AppBar.js'
 
 export default function PathfindingIndex() {
   
+  const [cells, setCells] = React.useState(300);
+
   const renderButtons = () => {
     var arr = [];
 
-    for(var i = 0; i < 300; i++) {
+    for(var i = 0; i < cells; i++) {
       arr.push(i)
     }
 
@@ -29,7 +31,7 @@ export default function PathfindingIndex() {
     })
   }
 
-  var invBtns = ["Djikstras", "Edit", "A-Star", "TargetNode", "StartNode", "Save", "Reset", "ResetVisitedNodes"];
+  var invBtns = ["Djikstras", "Edit", "A-Star", "TargetNode", "StartNode", "Save", "Reset", "ResetVisitedNodes", "Increase", "Decrease"];
 
   function edit_button(id, color) {
     var cell = document.getElementById(id);
@@ -107,6 +109,18 @@ export default function PathfindingIndex() {
     })
   }
 
+  function Increase() {
+    setCells(cells + 100);
+  }
+
+  function Decrease() {
+    if(cells > 100) {
+      setCells(cells - 100);
+    } else {
+      alert("Cannot decrease cells any further");
+    }
+  }
+
   return (
     <>
       <header>
@@ -119,12 +133,18 @@ export default function PathfindingIndex() {
           <Button sx={{ p: 1, color: "white"}} id="TargetNode" onClick={TargetNode}>Target Node</Button>
           <Button sx={{ p: 1, color: "white"}} id="Save" onClick={Save}>Save</Button>
           <Button sx={{ p: 1, color: "white"}} id="Reset" onClick={Reset}>Reset Entire Grid</Button>
+          <Button sx={{ p: 1, color: "white"}} id="Increase" onClick={Increase}>Increase Grid</Button>
+          <Button sx={{ p: 1, color: "white"}} id="Decrease" onClick={Decrease}>Decrease Grid</Button>
           <Button sx={{ p: 1, color: "white"}} id="ResetVisitedNodes" onClick={ResetVisitedNodes}>Reset Visisted Nodes</Button>
+          <Divider style={{ background: 'white'}} />
           <Button sx={{ p: 1, color: "white", ml: 5}} id="Djikstras" onClick={Dijkstras}>Dijkstra's</Button>
           <Button sx={{ p: 1, color: "white"}} id="A-Star" onClick={AStar}>A-Star</Button>
           <Divider style={{ background: 'white'}} />
           <Typography id="timer" sx = {{ p: 1 }} variant="h6">
             The last computation took 0ms to complete
+          </Typography>
+          <Typography id="complexity" sx = {{ p: 1 }} variant="h6">
+            
           </Typography>
         </Container>
       </Paper>

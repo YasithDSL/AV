@@ -3,7 +3,7 @@ import Cell from './Cell.js';
 export default async function Dijkstras() {
     var start_time = performance.now();
     var buttons = document.querySelectorAll("button");
-    var invBtns = ["Return", "Djikstras", "Edit", "A-Star", "TargetNode", "StartNode", "Save", "Reset", "ResetVisitedNodes"];
+    var invBtns = ["Djikstras", "Edit", "A-Star", "TargetNode", "StartNode", "Save", "Reset", "ResetVisitedNodes", "Increase", "Decrease"];
     var nodes = {};
     var destination_node;
     var start_node;
@@ -107,10 +107,11 @@ export default async function Dijkstras() {
     var timer = document.getElementById("timer");
     var time_taken = Math.round(end_time - start_time);
     timer.textContent = "The last computation took " + time_taken + "ms to complete";
+    var complexity = document.getElementById("complexity");
+    complexity.textContent = "The complexity of this algorithm is O(ElogV) E = Edges, V = Vertices. It doesn't use a heuristic, and is simple to implement.";
 }   
 
 
-// Make more efficient
 function generate_ids(id, opcode, operand) { 
     var column = Math.floor(id / 20);
     var new_id = opcode == "-" ? id - operand : id + operand;

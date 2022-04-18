@@ -1,18 +1,39 @@
-import * as tf from '@tensorflow/tfjs';
-import * as mobilenet from'@tensorflow-models/mobilenet';
-import * as knnClassifier from '@tensorflow-models/knn-classifier';
+import * as tmImage from '@teachablemachine/image';
 
 
 export async function getPred(image) {
-    const model = await mobilenet.load();
-    const predictions = await model.classify(image);
-    var text = "";
+    // My model is hosted on this URL
+    const URL = "https://teachablemachine.withgoogle.com/models/df4D78q8s/";
 
-    predictions.forEach(function (p){
-        const className = p.className.split(',')[0];
-        const probability = (p.probability*100).toFixed(5);
-        text = text + " " + probability + " " + className;
-    });
+    let model, labelContainer, maxPredictions;
 
-    document.getElementById("prediction").innerHTML = text;
+    async function init() {
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+
+        model = await tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+
+        labelContainer = document.getElementById("label-container");
+        for (let i = 0; i < maxPredictions; i++) { 
+            labelContainer.appendChild(document.createElement("div"));
+        }
+    }
+
+    await init();
+
+    let results = [];
+
+    async function predict() {
+        const prediction = await model.predict(image);
+        for (let i = 0; i < maxPredictions; i++) {
+            const classPrediction = prediction[i].className + " sort: " + prediction[i].probability.toFixed(2);
+            labelContainer.childNodes[i].innerHTML = classPrediction;
+            results.push(parseFloat(prediction[i].probability.toFixed(2)))
+        }
+
+    }
+
+    await predict();
+    return results;
 }

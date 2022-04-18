@@ -3,7 +3,7 @@ import Cell from './Cell';
 export default async function AStar() {
     var start_time = performance.now();
     var buttons = document.querySelectorAll("button");
-    var invBtns = ["Return", "Djikstras", "Edit", "A-Star", "TargetNode", "StartNode", "Save", "Reset", "ResetVisitedNodes"];
+    var invBtns = ["Djikstras", "Edit", "A-Star", "TargetNode", "StartNode", "Save", "Reset", "ResetVisitedNodes", "Increase", "Decrease"];
     var nodes = {};
     var destination_node;
     var start_node;
@@ -114,6 +114,8 @@ export default async function AStar() {
     var timer = document.getElementById("timer");
     var time_taken = Math.round(end_time - start_time);
     timer.textContent = "The last computation took " + time_taken + "ms to complete";
+    var complexity = document.getElementById("complexity");
+    complexity.textContent = "The complexity of this algorithm is O(E) E = Edges. It uses a heuristic and is harder to implement (vs Dijkstras).";
 }
 
 function remove(list, item) {

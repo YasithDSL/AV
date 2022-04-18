@@ -7,5 +7,12 @@ export default class Bar {
         this.value = parseInt(this.object.getAttribute("value"));
     }
 
+    setColour(color) {
+        this.object.style.background = color;
+    }
     
+    setHeight(height) {
+        this.object.style.minHeight = height + "px";
+        this.value = height;
+    }
 }

@@ -2,7 +2,7 @@ export default class Cell {
     object = null;
     visited = false;
 
-    distance = Number.MAX_VALUE; // distance from the start node
+    distance = Number.MAX_VALUE;
     heuristic = Number.MAX_VALUE;
     totalcost = Number.MAX_VALUE;
 

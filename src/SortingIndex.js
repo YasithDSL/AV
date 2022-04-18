@@ -10,6 +10,8 @@ import { useState } from 'react';
 
 import Bubble from './Bubble.js';
 import MergeSort from './MergeSort.js';
+import Insertion from './Insertion.js';
+import HeapSort from './HeapSort.js';
 import ButtonAppBar from './AppBar.js'
 import Bar from './Bar.js';
 
@@ -50,7 +52,12 @@ export default function SortingIndex() {
   }
 
   function Increase() {
-      var size = columns + 50;
+      let size = columns;
+      if(size < 50) {
+        size = columns + 10;
+      } else {
+        size = columns + 50;
+      }
       var elements = renderButtons(size);
       setColumns(size);
       setBars(elements);
@@ -83,6 +90,7 @@ export default function SortingIndex() {
         await sleep;
     }
     var elements = renderButtons(columns);
+    document.getElementById("complexity").innerHTML = "";
     setColumns(columns);
     setBars(elements);
   }
@@ -100,11 +108,13 @@ export default function SortingIndex() {
           <Button sx={{ p: 1, color: "white"}} id="Reset" onClick={Reset}>Reset</Button>
           <Button sx={{ p: 1, color: "white", ml: 5}} id="Bubble" onClick={() => Bubble(columns)}>Bubble</Button>
           <Button sx={{ p: 1, color: "white"}} id="MergeSort" onClick={() => MergeSort(columns)}>Merge</Button>
-          <Button sx={{ p: 1, color: "white"}} id="Insertion" onClick={() => Bubble(columns)}>Insertion</Button>
+          <Button sx={{ p: 1, color: "white"}} id="Insertion" onClick={() => Insertion(columns)}>Insertion</Button>
+          <Button sx={{ p: 1, color: "white"}} id="HeapSort" onClick={() => HeapSort(columns)}>Heap Sort</Button>
           <Divider style={{ background: 'white'}} />
           <Typography id="timer" sx = {{ p: 1 }} variant="h6">
-            The last computation took 0ms to complete |
-            Array Size = {columns}
+            The last computation took 0ms to complete
+          </Typography>
+          <Typography id="complexity" sx = {{ p: 1 }} variant="h6">
           </Typography>
         </Container>
       </Paper>
