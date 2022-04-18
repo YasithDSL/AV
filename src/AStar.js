@@ -30,7 +30,10 @@ export default async function AStar() {
             nodes_list.push(cell);
         }
     });
-
+    if(start_node == null || destination_node == null) {
+        alert("No start or destination node has been specified. Please try again.");
+        return;
+    }
     var visited = [];
     var open_list = [];
     // implement no route feature after initial implementation

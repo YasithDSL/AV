@@ -25,6 +25,10 @@ export default async function Dijkstras() {
             nodes[button.id] = cell;
         }
     })
+    if(start_node == null || destination_node == null) {
+        alert("No start or destination node has been specified. Please try again.");
+        return;
+    }
     // closest cells = +-1 on id and +- 20 on id
     var unvisited_nodes = [];
     var current_node = start_node;
