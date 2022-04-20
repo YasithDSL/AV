@@ -37,7 +37,6 @@ export default async function AStar() {
     var visited = [];
     var open_list = [];
     // implement no route feature after initial implementation
-    // Add slow drawing of visited nodes
     var no_route = false;
     var count = 1;
     open_list.push(start_node);

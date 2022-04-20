@@ -1,9 +1,11 @@
 import * as tmImage from '@teachablemachine/image';
+import * as tf from '@tensorflow/tfjs';
 
 
 export async function getPred(image) {
-    // My model is hosted on this URL
+    
     const URL = "https://teachablemachine.withgoogle.com/models/df4D78q8s/";
+
 
     let model, labelContainer, maxPredictions;
 
@@ -36,4 +38,6 @@ export async function getPred(image) {
 
     await predict();
     return results;
+
+    
 }

@@ -52,7 +52,6 @@ async function heapify(array, n, i) {
         array[i].setColour("green");
         array[largest].setHeight(swap);
         array[largest].setColour("green");
-        console.log("HEY");
         await sleep(1);
         await heapify(array, n, largest);
     }

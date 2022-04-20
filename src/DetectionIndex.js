@@ -18,7 +18,7 @@ import {
 import * as AI from './AI.js';
 import $ from 'jquery';
 
-export default function SortingIndex() {
+export default function DetectionIndex() {
 
   let fileInput = document.getElementById("file-input");
   let image = document.getElementById("image");
@@ -29,7 +29,6 @@ export default function SortingIndex() {
   async function getImage() {
     fileInput = document.getElementById("file-input");
     image = document.getElementById("image");
-    if (!fileInput.files[0]) throw new Error("Image not found");
     const file = fileInput.files[0];
 
     const reader = new FileReader();
@@ -39,7 +38,6 @@ export default function SortingIndex() {
       document.body.classList.add("image-loaded");
       let im = $("#image").get(0);
       let res = await AI.getPred(im)
-      console.log(res);
       setResults(res);
     };
   }
@@ -64,7 +62,7 @@ export default function SortingIndex() {
       <Paper elevation={0} sx={{ mt: 2, mb: 2, bgcolor: "#20262d"}}>
         <Container sx={{ p: 1, bgcolor: "#121212", color: "#FFFFFF", borderRadius: 2 , border: 1}} align="center">
           <Typography id="timer" sx = {{ p: 1 }} variant="h5">
-            Upload image of dataset to analyse
+            Upload image of array to analyse
           </Typography>
           <label htmlFor="file-input">
             <Input accept="image/*" id="file-input" onChange={getImage} multiple type="file" />

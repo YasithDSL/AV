@@ -23,7 +23,6 @@ export default class Cell {
 
     visit() {
         this.visited = true;
-        console.log("Changed state");
 
         if(this.object.style.color != "red" && this.object.style.color != "green") {
             this.object.style.color = "blue";
